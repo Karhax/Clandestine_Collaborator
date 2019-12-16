@@ -28,7 +28,14 @@ public class CommandHandlerScript : MonoBehaviour
             case string a when a.Equals("help"):
                 Help();
                 break;
+            default:
+                UnknownCommand();
+                break;
         }
+    }
+    void UnknownCommand()
+    {
+        consoleHistory.AddOutput(commandList[0] + " is not a known command. Try using 'help' to see a list of commands.");
     }
     void Help()
     {

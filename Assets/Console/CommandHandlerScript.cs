@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CommandHandlerScript : MonoBehaviour
 {
-    string[] commandList;
-    string command;
+    string[] inputList;
+
     [SerializeField]ConsoleHistoryController consoleHistory;
+
+    Dictionary<string, string> commandDescription;
 
     void Start()
     {
+        commandDescription = new Dictionary<string, string>();
 
+        commandDescription.Add("help", "Lists possible commands. Append -? to a command to get a detailed description");
     }
 
     // Update is called once per frame
@@ -21,9 +25,9 @@ public class CommandHandlerScript : MonoBehaviour
 
     public void Input(string s)
     {
-        commandList = s.Split(' ');
+        inputList = s.Split(' ');
 
-        switch (commandList[0].ToLower())
+        switch (inputList[0].ToLower())
         {
             case string a when a.Equals("help"):
                 Help();
@@ -35,14 +39,13 @@ public class CommandHandlerScript : MonoBehaviour
     }
     void UnknownCommand()
     {
-        consoleHistory.AddOutput(commandList[0] + " is not a known command. Try using 'help' to see a list of commands.");
+        consoleHistory.AddOutput(inputList[0] + " is not a known command. Try using 'help' to see a list of commands.");
     }
     void Help()
     {
-        consoleHistory.AddOutput("HELP REQUESTED");
-        for (int i = 1;i < commandList.Length;i++)
+        foreach(KeyValuePair<string, string> entry in commandDescription)
         {
-            consoleHistory.AddOutput("command: "+commandList[i]);
+            consoleHistory.AddOutput(entry.Key.ToUpper() + "  " + entry.Value);
         }
     }
 }

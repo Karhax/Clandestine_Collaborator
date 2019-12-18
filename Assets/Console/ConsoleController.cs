@@ -29,11 +29,14 @@ public class ConsoleController : MonoBehaviour
             }
             else if ((c == '\n') || (c == '\r')) // enter/return
             {
-                historyController.AddInput(text.text);
-                commandHandler.Input(text.text);
+                if (text.text.Length > 0)
+                {
+                    historyController.AddInput(text.text);
+                    commandHandler.Input(text.text);
 
-                text.text = null;
-                AgeRequest = 0;
+                    text.text = null;
+                    AgeRequest = 0;
+                }
             }
             else
             {

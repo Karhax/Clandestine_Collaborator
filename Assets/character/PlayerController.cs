@@ -26,6 +26,5 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 0.1f);
         }
-        Debug.Log(v);
     }
 }

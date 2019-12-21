@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] [Range(1,20)] float speed = 5f;
+    [SerializeField] [Range(1, 20)] float speed = 5f;
     Rigidbody2D rb;
+    [SerializeField] [Range(1, 500)] float health = 100f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

@@ -3606,5 +3606,10 @@ PrefabInstance:
       propertyPath: m_Sources.Array.data[0].weight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1340907561941999865, guid: 67ed4f550c9813a4790dd153e08c4d12,
+        type: 3}
+      propertyPath: CameraName
+      value: CAM1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67ed4f550c9813a4790dd153e08c4d12, type: 3}

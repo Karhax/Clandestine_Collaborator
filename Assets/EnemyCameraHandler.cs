@@ -12,7 +12,8 @@ public class EnemyCameraHandler : MonoBehaviour
     [SerializeField] string CameraName;
     SpriteMask mask;
     float timerBlink;
-    float timer;
+    float timerFlash;
+    float timerON;
     float disabledTimer;
     [SerializeField] float timeToEnable = 8f;
     enum CameraState
@@ -32,7 +33,7 @@ public class EnemyCameraHandler : MonoBehaviour
         mask = GetComponentInChildren<SpriteMask>();
         state = CameraState.enabled;
         timerBlink = 0;
-        timer = 0;
+        timerFlash = 0;
         disabledTimer = 0;
     }
 
@@ -52,7 +53,7 @@ public class EnemyCameraHandler : MonoBehaviour
                 mask.enabled = true;
                 cld.enabled = true;
                 timerBlink = 0;
-                timer = 0;
+                timerFlash = 0;
                 disabledTimer = 0;
                 break;
             case CameraState.flashing:
@@ -84,20 +85,21 @@ public class EnemyCameraHandler : MonoBehaviour
 
     void Flash()
     {
-        timer += Time.deltaTime;
+        timerFlash += Time.deltaTime;
 
-        timerBlink = (timeToEnable - disabledTimer) /2;
+        timerBlink = (timeToEnable - disabledTimer)/2;
 
-        if (timer > timerBlink)
+        if (timerFlash > timerBlink)
         {
-            timer = 0;
-            if(mask.enabled)
+            if (mask.enabled)
             {
                 mask.enabled = false;
+                timerFlash = 0;
             }
             else
             {
                 mask.enabled = true;
+                timerFlash -= timerFlash / 2;
             }
         }
     }

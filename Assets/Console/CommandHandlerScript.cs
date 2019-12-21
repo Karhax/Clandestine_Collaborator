@@ -10,11 +10,15 @@ public class CommandHandlerScript : MonoBehaviour
 
     Dictionary<string, string> commandDescription;
 
+    bool enableReboot = false;
+
     void Start()
     {
         commandDescription = new Dictionary<string, string>();
 
         commandDescription.Add("help", "Lists possible commands. Append -? to a command to get a detailed description");
+
+        AddRebootCommand();
     }
 
     // Update is called once per frame
@@ -47,5 +51,15 @@ public class CommandHandlerScript : MonoBehaviour
         {
             consoleHistory.AddOutput(entry.Key.ToUpper() + "  " + entry.Value);
         }
+    }
+    void DisableCamera()
+    {
+
+    }
+
+    public void AddRebootCommand()
+    {
+        enableReboot = true;
+        commandDescription.Add("reboot", "Reboots a device on the network.");
     }
 }

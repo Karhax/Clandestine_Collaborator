@@ -80,7 +80,7 @@ public class EnemyCameraHandler : MonoBehaviour
 
     public string ID()
     {
-        return CameraName;
+        return CameraName.ToLower();
     }
 
     void Flash()

@@ -262,7 +262,6 @@ GameObject:
   - component: {fileID: 5616768833984870624}
   - component: {fileID: 1340907561941999865}
   - component: {fileID: 5315834616991652215}
-  - component: {fileID: 2010591385850451143}
   m_Layer: 0
   m_Name: EnemyCamera
   m_TagString: Untagged
@@ -337,15 +336,3 @@ PolygonCollider2D:
       - {x: -0.29261738, y: 0.9549141}
       - {x: 0.29261726, y: 0.95491505}
       - {x: 2.2740486, y: 8.5767}
---- !u!114 &2010591385850451143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5616768833984870625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb54a9f524d7ed40a0dc81dea746e72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

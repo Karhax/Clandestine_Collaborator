@@ -106,7 +106,18 @@ public class EnemyCameraHandler : MonoBehaviour
 
     public void DisableCamera()
     {
-        state = CameraState.disabled;
-        disabledTimer = 0;
+        if (state == CameraState.enabled)
+        {
+            state = CameraState.disabled;
+            disabledTimer = 0;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            player.RaiseSuspicion(50 * Time.deltaTime);
+        }
     }
 }

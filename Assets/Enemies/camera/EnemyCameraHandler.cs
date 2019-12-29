@@ -40,11 +40,6 @@ public class EnemyCameraHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            DisableCamera();
-        }
-
         cameraIDtransform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         
         switch (state)

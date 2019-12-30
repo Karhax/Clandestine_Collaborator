@@ -6,7 +6,7 @@ public class EnemyGuardHandler : MonoBehaviour
 {
     Collider2D cld;
     SpriteMask mask;
-
+    PrinterHandler printerHandler;
     [SerializeField] List<Transform> patrolPositions;
 
     Vector3 targetPosition;
@@ -26,10 +26,11 @@ public class EnemyGuardHandler : MonoBehaviour
         mask = GetComponentInChildren<SpriteMask>();
     }
 
-    public void Distract(Vector3 pos)
+    public void Distract(PrinterHandler printer)
     {
-        targetPosition = pos;
+        targetPosition = printer.transform.position;
         distracted = true;
+        printerHandler = printer;
     }
 
     // Update is called once per frame
@@ -46,6 +47,10 @@ public class EnemyGuardHandler : MonoBehaviour
             {
                 timer = 0;
                 waiting = false;
+                if (distracted)
+                {
+                    printerHandler.StopPrint();
+                }
             }
         }
         else

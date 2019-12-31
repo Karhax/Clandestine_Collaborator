@@ -17,9 +17,10 @@ public class CommandHandlerScript : MonoBehaviour
         commandDescription = new Dictionary<string, string>();
 
         commandDescription.Add("help", "Lists possible commands. Append -? to a command to get a detailed description");
-
+        /*
         AddRebootCommand();
         AddPrintCommand();
+        */
     }
 
     // Update is called once per frame
@@ -153,13 +154,19 @@ public class CommandHandlerScript : MonoBehaviour
     }
     public void AddRebootCommand()
     {
-        enableReboot = true;
-        commandDescription.Add("reboot", "Reboots a device on the network.");
+        if (!enableReboot)
+        {
+            enableReboot = true;
+            commandDescription.Add("reboot", "Reboots a device on the network.");
+        }
     }
 
     public void AddPrintCommand()
     {
-        enablePrint = true;
-        commandDescription.Add("print", "Cause a printer to print continuously");
+        if (!enablePrint)
+        {
+            enablePrint = true;
+            commandDescription.Add("print", "Cause a printer to print continuously");
+        }
     }
 }

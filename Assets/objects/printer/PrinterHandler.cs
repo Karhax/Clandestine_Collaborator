@@ -16,6 +16,7 @@ public class PrinterHandler : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animation>();
+        printerID = GetComponentInChildren<TextMesh>();
         printerID.text = printerName;
     }
     public string ID()

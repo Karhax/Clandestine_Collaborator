@@ -7,8 +7,6 @@ public class PrinterHandler : MonoBehaviour
     TextMesh printerID;
     [SerializeField] string printerName;
     bool printing = false;
-    float timer = 0;
-    [SerializeField] float printTime = 5;
     Animation anim;
 
 
@@ -28,12 +26,12 @@ public class PrinterHandler : MonoBehaviour
         EnemyGuardHandler[] enemyGuards;
         enemyGuards = FindObjectsOfType<EnemyGuardHandler>();
         EnemyGuardHandler closestEnemy = null;
-        float distance = 0;
-        float tempDistance = 0;
+        float distance = float.MaxValue;
+        float tempDistance;
         foreach (EnemyGuardHandler egh in enemyGuards)
         {
-            tempDistance = Vector3.Distance(egh.transform.position, this.transform.position);
-            if (tempDistance > distance)
+            tempDistance = Vector3.Distance(egh.transform.position, transform.position);
+            if (tempDistance < distance)
             {
                 distance = tempDistance;
                 closestEnemy = egh;
@@ -45,14 +43,7 @@ public class PrinterHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (printing)
-        {
-            timer += Time.deltaTime;
-            if(timer > printTime)
-            {
-                printing = false;
-            }
-        }
+
     }
 
     public void Print()

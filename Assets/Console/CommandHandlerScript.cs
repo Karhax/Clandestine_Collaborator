@@ -77,7 +77,7 @@ public class CommandHandlerScript : MonoBehaviour
 
         for (int i = 0; i < inputList.Length; i++)
         {
-            if (inputList[i].ToLower().Contains("camera"))
+            if (inputList[i].ToLower().Equals("camera"))
             {
                 if (i + 1 == inputList.Length)
                 {
@@ -123,7 +123,7 @@ public class CommandHandlerScript : MonoBehaviour
 
         for (int i = 0; i < inputList.Length; i++)
         {
-            if (inputList[i].ToLower().Contains("print"))
+            if (inputList[i].ToLower().Equals("print"))
             {
                 if (i + 1 == inputList.Length && !finished)
                 {
@@ -134,6 +134,7 @@ public class CommandHandlerScript : MonoBehaviour
                 {
                     for (int j = 0; j < printers.Length; j++)
                     {
+                        Debug.Log("j:" + j + " i:" + i + " inputlist:" + inputList.Length);
                         if (inputList[i + 1].ToLower().Equals(printers[j].ID()))
                         {
                             printers[j].Print();
@@ -147,11 +148,11 @@ public class CommandHandlerScript : MonoBehaviour
                         finished = true;
                     }
                 }
-            }
-            if (inputList[i].ToLower().Contains("-?"))
-            {
-                consoleHistory.AddOutput("Printing command that causes a printer to continuously shake and make noise while\ntrying to print an incompatible number of pages.");
-                finished = true;
+                if (inputList[i].ToLower().Contains("-?"))
+                {
+                    consoleHistory.AddOutput("Printing command that causes a printer to continuously shake and make noise while\ntrying to print an incompatible number of pages.");
+                    finished = true;
+                }
             }
         }
         if (!finished)

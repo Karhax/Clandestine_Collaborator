@@ -183,8 +183,7 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: a1e8fc526c937ee49becc894a9efbc94, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: a1e8fc526c937ee49becc894a9efbc94, type: 2}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -234,5 +233,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bee94281c2afd949a46007fb807a175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  printerName: Printer1
-  printTime: 5
+  printerName: print1

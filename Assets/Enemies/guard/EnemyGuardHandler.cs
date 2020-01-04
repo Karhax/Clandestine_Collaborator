@@ -31,6 +31,9 @@ public class EnemyGuardHandler : MonoBehaviour
         targetPosition = printer.transform.position;
         distracted = true;
         printerHandler = printer;
+
+        timer = 0;
+        waiting = false;
     }
 
     // Update is called once per frame
@@ -50,6 +53,8 @@ public class EnemyGuardHandler : MonoBehaviour
                 if (distracted)
                 {
                     printerHandler.StopPrint();
+                    Debug.Log("stopped print" + printerHandler.name);
+                    distracted = false;
                 }
             }
         }
@@ -59,18 +64,9 @@ public class EnemyGuardHandler : MonoBehaviour
 
             float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
 
-            Debug.Log(angle);
-
             Quaternion qto = Quaternion.AngleAxis(angle, Vector3.back);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, qto, rotSpeed * Time.deltaTime);
-
-
-            if (qto == transform.rotation)
-            {
-                transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-            }
-
 
             if (Vector3.Distance(targetPosition, transform.position) < 0.1f)
             {
@@ -80,7 +76,10 @@ public class EnemyGuardHandler : MonoBehaviour
                 {
                     currentPoint = 0;
                 }
-                distracted = false;
+            }
+            else if (qto == transform.rotation)
+            {
+                transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
             }
         }
     }

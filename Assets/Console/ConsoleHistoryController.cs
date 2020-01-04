@@ -20,7 +20,7 @@ public class ConsoleHistoryController : MonoBehaviour
     void Update()
     {
         text.text = null;
-        if (stringList.Count > 28)
+        if (stringList.Count > 50)
         {
             stringList.RemoveAt(0);
         }

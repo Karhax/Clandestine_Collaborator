@@ -25,6 +25,7 @@ public class DoorHandler : MonoBehaviour
         doorSprite = GetComponent<SpriteRenderer>();
         goalPosition = transform.position;
         goalPosition.x -= doorSprite.size.x;
+        doorID.text = doorName;
     }
 
     // Update is called once per frame

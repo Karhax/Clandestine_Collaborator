@@ -11,16 +11,18 @@ public class CommandHandlerScript : MonoBehaviour
 
     bool enableReboot = false;
     bool enablePrint = false;
+    bool enableOpen = false;
 
     void Start()
     {
         commandDescription = new Dictionary<string, string>();
 
         commandDescription.Add("help", "Lists possible commands. Append -? to a command to get a detailed description");
-        /*
+        commandDescription.Add("quit", "Exits the game.");
+
         AddRebootCommand();
         AddPrintCommand();
-        */
+        AddOpenCommand();
     }
 
     // Update is called once per frame
@@ -44,14 +46,20 @@ public class CommandHandlerScript : MonoBehaviour
             case string a when a.Equals("print") && enablePrint:
                 Print();
                 break;
+            case string a when a.Equals("open") && enableOpen:
+                Open();
+                break;
+            case string a when a.Equals("quit"):
+                Application.Quit();
+                break;
             default:
-                UnknownCommand();
+                UnknownCommand(inputList[0]);
                 break;
         }
     }
-    void UnknownCommand()
+    void UnknownCommand(string command)
     {
-        consoleHistory.AddOutput(inputList[0] + " is not a known command. Try using 'help' to see a list of commands.");
+        consoleHistory.AddOutput(command + " is not a known command. Try using 'help' to see a list of commands.");
     }
     void Help()
     {
@@ -99,7 +107,7 @@ public class CommandHandlerScript : MonoBehaviour
                 consoleHistory.AddOutput("Reboot command. Follow reboot with the type of device you wish to reboot.\nTypes are:\ncamera\nExample:\nreboot camera cameraid");
                 finished = true;
             }
-            }
+        }
         if (!finished)
         {
             consoleHistory.AddOutput("Could not complete reboot command, no type given.");
@@ -117,27 +125,27 @@ public class CommandHandlerScript : MonoBehaviour
         {
             if (inputList[i].ToLower().Contains("print"))
             {
-                    if (i + 1 == inputList.Length && !finished)
+                if (i + 1 == inputList.Length && !finished)
+                {
+                    consoleHistory.AddOutput("Could not print, no ID specified.");
+                    finished = true;
+                }
+                else
+                {
+                    for (int j = 0; j < printers.Length; j++)
                     {
-                        consoleHistory.AddOutput("Could not print, no ID specified.");
-                        finished = true;
-                    }
-                    else
-                    {
-                        for (int j = 0; j < printers.Length; j++)
+                        if (inputList[i + 1].ToLower().Equals(printers[j].ID()))
                         {
-                            if (inputList[i + 1].ToLower().Equals(printers[j].ID()))
-                            {
-                                printers[j].Print();
-                                consoleHistory.AddOutput("Started printing on Printer with ID '" + inputList[i + 1] + "'.");
-                                finished = true;
-                            }
-                        }
-                        if (!finished && !inputList[i+1].ToLower().Contains("-?"))
-                        {
-                            consoleHistory.AddOutput("Could not find printer with ID '" + inputList[i + 1] + "'.");
+                            printers[j].Print();
+                            consoleHistory.AddOutput("Started printing on Printer with ID '" + inputList[i + 1] + "'.");
                             finished = true;
                         }
+                    }
+                    if (!finished && !inputList[i + 1].ToLower().Contains("-?"))
+                    {
+                        consoleHistory.AddOutput("Could not find printer with ID '" + inputList[i + 1] + "'.");
+                        finished = true;
+                    }
                 }
             }
             if (inputList[i].ToLower().Contains("-?"))
@@ -149,6 +157,80 @@ public class CommandHandlerScript : MonoBehaviour
         if (!finished)
         {
             consoleHistory.AddOutput("Could not complete print command");
+        }
+
+    }
+
+    void Open()
+    {
+        DoorHandler[] doors;
+        bool finished = false;
+
+        doors = FindObjectsOfType<DoorHandler>();
+
+        for (int i = 0; i < inputList.Length; i++)
+        {
+            if (inputList[i].ToLower().Contains("open"))
+            {
+                if (i + 1 == inputList.Length && !finished)
+                {
+                    consoleHistory.AddOutput("Could not open door, no ID specified.");
+                    finished = true;
+                }
+                else
+                {
+                    for (int j = 0; j < doors.Length; j++)
+                    {
+                        if (inputList[i + 1].ToLower().Equals(doors[j].ID()))
+                        {
+                            if (doors[j].Password() == "")
+                            {
+                                doors[j].Open();
+                                consoleHistory.AddOutput("Opened door with ID '" + inputList[i + 1] + "'.");
+                                finished = true;
+                            }
+                            else
+                            {
+                                if (inputList.Length > i + 2)
+                                {
+
+                                    if (inputList[i + 2].ToLower().Equals(doors[j].Password()))
+                                    {
+                                        doors[j].Open();
+                                        consoleHistory.AddOutput("Opened door with ID '" + inputList[i + 1] + "'.");
+                                        finished = true;
+                                    }
+                                    else
+                                    {
+                                        consoleHistory.AddOutput("Could not open door with ID '" + inputList[i + 1] + "'. Wrong password specified.");
+                                        finished = true;
+                                    }
+                                }
+                                else
+                                {
+                                    consoleHistory.AddOutput("Could not open door with ID '" + inputList[i + 1] + "'. No password specified.");
+                                    finished = true;
+                                }
+
+                            }
+                        }
+                    }
+                    if (!finished && !inputList[i + 1].ToLower().Contains("-?"))
+                    {
+                        consoleHistory.AddOutput("Could not find door with ID '" + inputList[i + 1] + "'.");
+                        finished = true;
+                    }
+                }
+            }
+            if (inputList[i].ToLower().Contains("-?"))
+            {
+                consoleHistory.AddOutput("Door opening command that will open any door in the facility.\nSome doors have a password which must be included after the ID");
+                finished = true;
+            }
+        }
+        if (!finished)
+        {
+            consoleHistory.AddOutput("Could not complete open command");
         }
 
     }
@@ -167,6 +249,15 @@ public class CommandHandlerScript : MonoBehaviour
         {
             enablePrint = true;
             commandDescription.Add("print", "Cause a printer to print continuously");
+        }
+    }
+
+    public void AddOpenCommand()
+    {
+        if (!enableOpen)
+        {
+            enableOpen = true;
+            commandDescription.Add("open", "Opens a door");
         }
     }
 }

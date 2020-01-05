@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotePickupPrint : NotePickupParent
+public class NotePickupPassword : NotePickupParent
 {
     protected override string Note()
     {
-        return "You find a USB stick that was placed by an agent earlier. It contains a command for your handler back at base to use.";
+        return "You find a sticky note with a password written down: \"joshua\"";
     }
     protected override void Effect()
     {
         CommandHandlerScript commandHandler = FindObjectOfType<CommandHandlerScript>();
-        commandHandler.AddPrintCommand();
+        commandHandler.AddOpenCommand();
     }
 }

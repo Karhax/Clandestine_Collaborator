@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotePickupPrint : NotePickupParent
+public class NotePickupOpen : NotePickupParent
 {
     protected override string Note()
     {
@@ -11,6 +11,6 @@ public class NotePickupPrint : NotePickupParent
     protected override void Effect()
     {
         CommandHandlerScript commandHandler = FindObjectOfType<CommandHandlerScript>();
-        commandHandler.AddPrintCommand();
+        commandHandler.AddOpenCommand();
     }
 }

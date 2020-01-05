@@ -19,10 +19,11 @@ public class CommandHandlerScript : MonoBehaviour
 
         commandDescription.Add("help", "Lists possible commands. Append -? to a command to get a detailed description");
         commandDescription.Add("quit", "Exits the game.");
-
+        /*
         AddRebootCommand();
         AddPrintCommand();
         AddOpenCommand();
+        */
     }
 
     // Update is called once per frame

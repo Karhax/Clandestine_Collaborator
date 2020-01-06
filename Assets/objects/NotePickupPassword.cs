@@ -8,9 +8,4 @@ public class NotePickupPassword : NotePickupParent
     {
         return "You find a sticky note with a password written down: \"joshua\"";
     }
-    protected override void Effect()
-    {
-        CommandHandlerScript commandHandler = FindObjectOfType<CommandHandlerScript>();
-        commandHandler.AddOpenCommand();
-    }
 }
